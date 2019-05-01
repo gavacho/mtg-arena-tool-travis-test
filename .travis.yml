@@ -33,4 +33,3 @@ deploy:
   file: "$HOME/dist/*"
   on:
     repo: Manuel-777/mtg-arena-tool-travis-test
-    tags: true
