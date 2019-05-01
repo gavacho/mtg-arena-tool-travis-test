@@ -16,7 +16,7 @@ before_deploy:
   - export PACKAGE=$(npm run version)
   - export HEAD=$(git log --format=%h -1)
   #- export TRAVIS_TAG=${TRAVIS_TAG:$PACKAGE-$HEAD}
-  - git tag $PACKAGE
+  - git tag ${$PACKAGE}
 
 jobs:
   include:
