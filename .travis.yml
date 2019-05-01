@@ -1,6 +1,7 @@
 language: node_js
 
 node_js:
+  - "node"
   - "10"
 
 matrix:
@@ -10,11 +11,10 @@ matrix:
     sudo: required
   - os: osx
   - os: windows
-  node_js: "node"
 
 env:
   global:
-    - PACKAGE_VERSION=$(node -p -e "require('$HOME/package.json').version")
+    - PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
@@ -37,10 +37,9 @@ deploy:
   overwrite: true
   provider: releases
   api_key: $GITHUB_TOKEN
+  file_glob: true
   file:
-    - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.AppImage
-    - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.dmg
-    - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.exe
+    - $HOME/dist/*
   skip_cleanup: true
   draft: false
   on:
