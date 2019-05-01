@@ -9,12 +9,10 @@ env:
   - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 cache: npm
 
-before_deploy:
-  # Set up git user name and tag this commit
-  - git config --local user.name "Manuel-777"
-  - git config --local user.email "manuel.etchegaray7@gmail.com"
-  - export TRAVIS_TAG = $(node -p "require('./package.json').version")-$(git log --format=%h -1)}
-  - git tag $TRAVIS_TAG
+before_deploy: |
+  PKG_VERSION=$(node -p "require('./package.json').version")
+  TRAVIS_TAG = $(PKG_VERSION)-$(git log --format=%h -1)}
+  git tag $TRAVIS_TAG
 
 jobs:
   include:
