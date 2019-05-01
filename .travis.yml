@@ -21,7 +21,8 @@ jobs:
       os: linux
       dist: xenial
       sudo: required
-      script: 
+      script:
+         - which build || true
          - |
            docker run --rm -ti \
            --env ELECTRON_CACHE="/root/.cache/electron" \
@@ -31,7 +32,7 @@ jobs:
            -v ~/.cache/electron:/root/.cache/electron \
            -v ~/.cache/electron-builder:/root/.cache/electron-builder \
            electronuserland/builder:wine \
-           /bin/bash -c "npm run dist"
+           /bin/bash -c "rm -rf node_modules && npm ci && npm run dist"
          - npm run dist
       deploy:
         provider: releases
