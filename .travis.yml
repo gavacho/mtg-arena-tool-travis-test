@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "10"
+  - '10'
 
 matrix:
   include:
@@ -12,31 +12,25 @@ matrix:
 
 env:
   global:
-    - ELECTRON_CACHE=$HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
-cache:
-  directories:
-  - node_modules
-  - $HOME/.cache/electron
-  - $HOME/.cache/electron-builder
-  - $HOME/.npm/_prebuilds
-
+  - ELECTRON_CACHE=$HOME/.cache/electron
+  - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 cache: npm
 
 script:
   - npm run dist
 
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Manuel-777"
+  - git config --local user.email "manuel.etchegaray7@gmail.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
+
 deploy:
-  overwrite: true
   provider: releases
-  api_key: $GITHUB_TOKEN
-  file_glob: true
-  file:
-    - "$HOME/dist/MTG-Arena-Tool-*-x86_64.AppImage"
-    - "$HOME/dist/MTG-Arena-Tool-*.pkg"
-  skip_cleanup: true
-  draft: true
+  api_key:
+    secure: uIYMNCzftzhPp5b6NgIdlfFnUkFFubh6FEzvRdga88mNTPDmP5ydL7gwyzUefNk8So44AfuUpSWH+EWC9SOmk0Sk5tIyN/XRc7lekUW7y4W4EKv01rKN2bH80qvCJUJO1gFLb0vfFdXUhKPr0cWEfGUJ3CPTxqaQqBRlzBwM0OTxlRZYg8X5AiqZ+qP8rrInF5EkJzvK89jDfRFVr5JfaF/h5LjKCqF2HTOT/G52//P2WV2YG/y4JbTpsiCvRQFzERXdaCdhBRcllYXpYa9d3N7FBczbe8rWxnHPxVkA3GeCDxVKgY6cyseyiZX1fa7M2hoKIGaSWKEDjcpW0lHYaNWA9Rk/nZ+GIz7femhTwDvIykmD0nbEpfdbBDMxTEdPQvhF/eOQxaNwk9eECTmRLcSvqj7AVuAOjiZw5qhyEx2iQe8Z8hDMubEiX7hxNLxbtBtNKT+zJnCzqqx6OvEyWuQRepkX05MRFFfjp06i1V57y6RD8yHo0DWg9jDnq5VEeg5iPimx1bkyCaLkLTkz2Zd54C/ILccdkQyGztLFjxwn3OHFE3qqrgoLhhBgwQphaZ6d/bX0j+G5RFmN5VUMxDc31DXmEypxER5xKcErIJWvOk071ZIP7lS9P6eiNWXYFFkztw1lh2z/R5jjlcau4rrijkMgV/FsFmerajUTI8g=
+  file: "$HOME/dist/*"
   on:
     repo: Manuel-777/mtg-arena-tool-travis-test
     tags: true
