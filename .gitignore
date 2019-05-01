@@ -1,0 +1,10 @@
+node_modules
+dist
+main.sublime-workspace
+main.sublime-project
+*.sublime-workspace
+*.sublime-project
+*.sublime-settings
+.vscode
+.DS_Store
+/.vs

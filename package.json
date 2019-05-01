@@ -1,0 +1,76 @@
+{
+	"name": "MTG-Arena-Tool",
+	"description": "An MTG Arena deck tracker and statistics manager.",
+	"author": "Manuel Etchegaray <manuel.etchegaray7@gmail.com>",
+	"contributors": [
+		"Ken Browning <cashmonae@gmail.com>",
+		"Douglas Miller <millerdouglas@bellsouth.net>",
+		"Annan Fay Yearian <annanfay@gmail.com>",
+		"Faraz Sherwani <farazsherwani@gmail.com>",
+		"Kyle Olson <kyle@kyleolson.com>",
+		"Sasha Trachuk <alexandr.trachuk@gmail.com>",
+		"Brad Wyman <tildar@gmail.com>",
+		"Henre Botha <henrebotha@gmail.com>",
+		"Alexander Savchenkov <alex@sociumtrade.com>",
+		"Jeff Hodges <jeff@somethingsimilar.com>",
+		"NorthFury <robyter@gmail.com>"
+	],
+	"license": "SEE LICENSE IN LICENSE.md",
+	"homepage": "https://mtgatool.com/",
+	"repository": "https://github.com/Manuel-777/MTG-Arena-Tool",
+	"bugs": "https://github.com/Manuel-777/MTG-Arena-Tool/issues",
+	"version": "2.2.25",
+	"main": "main.js",
+	"build": {
+		"appId": "com.github.manuel777.mtgatool",
+		"win": {
+			"target": "NSIS",
+			"icon": "icon.ico"
+		},
+		"mac": {
+			"target": "pkg",
+			"icon": "icon.ico"
+		},
+		"linux": {
+			"target": "AppImage",
+			"category": "utility",
+			"icon": "32x32.png"
+		}
+	},
+	"scripts": {
+		"start": "electron .",
+		"postinstall": "install-app-deps",
+		"dist": "build --x64"
+	},
+	"dependencies": {
+		"async": "^2.6.1",
+		"chart.js": "^2.8.0",
+		"conf": "^2.2.0",
+		"date-fns": "^1.30.1",
+		"electron-asar-hot-updater": "0.0.5",
+		"electron-debug": "^1.5.0",
+		"electron-transparency-mouse-fix": "^1.0.0-beta",
+		"electron-updater": "^4.0.6",
+		"google-protobuf": "^3.7.1",
+		"gunzip-file": "^0.1.1",
+		"howler": "^2.1.1",
+		"js-sha1": "^0.6.0",
+		"lodash.clonedeep": "^4.5.0",
+		"lodash.transform": "^4.6.0",
+		"mathjs": "^5.9.0",
+		"npm": "^6.9.0",
+		"qs": "^6.7.0",
+		"queue": "^4.5.1",
+		"striptags": "^3.1.1",
+		"time-elements": "^2.0.0"
+	},
+	"devDependencies": {
+		"acorn": "^6.1.1",
+		"electron": "^3.1.8",
+		"electron-builder": "^20.39.0",
+		"eslint": "^5.16.0",
+		"eslint-config-prettier": "^4.1.0",
+		"eslint-plugin-prettier": "^3.0.1",
+		"prettier": "1.16.4"
+	}
+}

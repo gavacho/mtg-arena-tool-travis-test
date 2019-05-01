@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>MTG Arena Tool</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="../shared/shared.css">
+        <style>
+        .card_tile {
+            min-width: calc(100% - 48px) !important;
+        }
+
+        .card_tile_glow {
+            left: calc(0px - 100% + 32px) !important;
+            min-width: calc(100% - 48px) !important;
+        }
+        </style>
+        <script src="../shared/jquery-3.3.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+        <script src="../shared/util.js"></script>
+        <script src="overlay.js"></script>
+    </head>
+    <body>
+        <div class="outer_wrapper click-through">
+            <div class="overlay_wrapper overlay_bg_image" >
+            </div>
+        </div>
+        <div class="outer_wrapper click-through absolute overlay_container">
+        
+            <div class="top click-on" style="justify-content: flex-end;">
+                <div class="button minimize"></div>
+                <div class="button settings"></div>
+                <div class="button close"></div>
+            </div>
+
+            <div class="overlay_deckname"></div>
+            <div class="overlay_deckcolors"></div>
+            <div class="overlay_separator"></div>
+            <div class="overlay_decklist"></div>
+
+            <div class="overlay_deck_container">
+                <div class="deck_prev click-on"></div>
+                <div class="deck_next click-on"></div>
+            </div>
+
+            <div class="overlay_draft_container click-on">
+                <div class="draft_prev"></div>
+                <div class="draft_title"></div>
+                <div class="draft_next"></div>
+            </div>
+
+            <div class="overlay_clock_spacer" />
+
+            <div class="overlay_clock_container click-on">
+                <div class="clock_prev"></div>
+                <div class="clock_turn"></div>
+                <div class="clock_elapsed"></div>
+                <div class="clock_next"></div>
+            </div>
+
+            <div class="overlay_hover_container">
+                <img class="main_hover" style="opacity: 0;"></img>
+            </div>
+        </div>
+    </body>
+</html>
