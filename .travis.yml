@@ -17,39 +17,24 @@ before_deploy:
 
 jobs:
   include:
-    - stage: Linux build
+    - stage: Windows & Linux build
       os: linux
       dist: xenial
       sudo: required
       script: 
          - env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS_TAG|TRAVIS|TRAVIS_REPO_|TRAVIS_BUILD_|TRAVIS_BRANCH|TRAVIS_PULL_REQUEST_|APPVEYOR_|CSC_|GH_|GITHUB_|BT_|AWS_|STRIP|BUILD_'
-         - | docker run --rm -ti \
-               --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS_TAG|TRAVIS|TRAVIS_REPO_|TRAVIS_BUILD_|TRAVIS_BRANCH|TRAVIS_PULL_REQUEST_|APPVEYOR_|CSC_|GH_|GITHUB_|BT_|AWS_|STRIP|BUILD_') \
-               --env ELECTRON_CACHE="/root/.cache/electron" \
-               --env ELECTRON_BUILDER_CACHE="/root/.cache/electron-builder" \
-               -v ${PWD}:/project \
-               -v ${PWD##*/}-node-modules:/project/node_modules \
-               -v ~/.cache/electron:/root/.cache/electron \
-               -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-               electronuserland/builder:wine \
-               /bin/bash -c "yarn && yarn dist"
+         - |
+           docker run --rm -ti \
+           --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS_TAG|TRAVIS|TRAVIS_REPO_|TRAVIS_BUILD_|TRAVIS_BRANCH|TRAVIS_PULL_REQUEST_|APPVEYOR_|CSC_|GH_|GITHUB_|BT_|AWS_|STRIP|BUILD_') \
+           --env ELECTRON_CACHE="/root/.cache/electron" \
+           --env ELECTRON_BUILDER_CACHE="/root/.cache/electron-builder" \
+           -v ${PWD}:/project \
+           -v ${PWD##*/}-node-modules:/project/node_modules \
+           -v ~/.cache/electron:/root/.cache/electron \
+           -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+           electronuserland/builder:wine \
+           /bin/bash -c "npm run dist"
          - npm run dist
-      deploy:
-        provider: releases
-        file_glob: true
-        skip_cleanup: true
-        api_key:
-          secure: uIYMNCzftzhPp5b6NgIdlfFnUkFFubh6FEzvRdga88mNTPDmP5ydL7gwyzUefNk8So44AfuUpSWH+EWC9SOmk0Sk5tIyN/XRc7lekUW7y4W4EKv01rKN2bH80qvCJUJO1gFLb0vfFdXUhKPr0cWEfGUJ3CPTxqaQqBRlzBwM0OTxlRZYg8X5AiqZ+qP8rrInF5EkJzvK89jDfRFVr5JfaF/h5LjKCqF2HTOT/G52//P2WV2YG/y4JbTpsiCvRQFzERXdaCdhBRcllYXpYa9d3N7FBczbe8rWxnHPxVkA3GeCDxVKgY6cyseyiZX1fa7M2hoKIGaSWKEDjcpW0lHYaNWA9Rk/nZ+GIz7femhTwDvIykmD0nbEpfdbBDMxTEdPQvhF/eOQxaNwk9eECTmRLcSvqj7AVuAOjiZw5qhyEx2iQe8Z8hDMubEiX7hxNLxbtBtNKT+zJnCzqqx6OvEyWuQRepkX05MRFFfjp06i1V57y6RD8yHo0DWg9jDnq5VEeg5iPimx1bkyCaLkLTkz2Zd54C/ILccdkQyGztLFjxwn3OHFE3qqrgoLhhBgwQphaZ6d/bX0j+G5RFmN5VUMxDc31DXmEypxER5xKcErIJWvOk071ZIP7lS9P6eiNWXYFFkztw1lh2z/R5jjlcau4rrijkMgV/FsFmerajUTI8g=
-        file: dist/*
-        on:
-          tags: true
-          repo: Manuel-777/mtg-arena-tool-travis-test
-    - stage: Linux build
-      os: linux
-      dist: xenial
-      sudo: required
-      script:
-        - npm run dist
       deploy:
         provider: releases
         file_glob: true
