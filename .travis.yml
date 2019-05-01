@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "stable"
+  - "node"
   - "10"
 
 matrix:
@@ -14,7 +14,7 @@ matrix:
 
 env:
   global:
-    - PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+    - PACKAGE_VERSION=$(node -p -e "require('$HOME/package.json').version")
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
