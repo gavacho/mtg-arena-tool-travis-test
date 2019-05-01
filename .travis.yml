@@ -9,10 +9,12 @@ env:
   - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 cache: npm
 
-before_deploy: |
-  PKG_VERSION=$(node -p "require('./package.json').version")
-  TRAVIS_TAG = $(PKG_VERSION)-$(git log --format=%h -1)}
-  git tag $TRAVIS_TAG
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Manuel-777"
+  - git config --local user.email "manuel.etchegaray7@gmail.com"
+  - export TRAVIS_TAG=${TRAVIS_TAG:$(node -p "require('./package.json').version")-$(git log --format=%h -1)}
+  - git tag $TRAVIS_TAG
 
 jobs:
   include:
@@ -27,7 +29,7 @@ jobs:
         file_glob: true
         api_key:
           secure: uIYMNCzftzhPp5b6NgIdlfFnUkFFubh6FEzvRdga88mNTPDmP5ydL7gwyzUefNk8So44AfuUpSWH+EWC9SOmk0Sk5tIyN/XRc7lekUW7y4W4EKv01rKN2bH80qvCJUJO1gFLb0vfFdXUhKPr0cWEfGUJ3CPTxqaQqBRlzBwM0OTxlRZYg8X5AiqZ+qP8rrInF5EkJzvK89jDfRFVr5JfaF/h5LjKCqF2HTOT/G52//P2WV2YG/y4JbTpsiCvRQFzERXdaCdhBRcllYXpYa9d3N7FBczbe8rWxnHPxVkA3GeCDxVKgY6cyseyiZX1fa7M2hoKIGaSWKEDjcpW0lHYaNWA9Rk/nZ+GIz7femhTwDvIykmD0nbEpfdbBDMxTEdPQvhF/eOQxaNwk9eECTmRLcSvqj7AVuAOjiZw5qhyEx2iQe8Z8hDMubEiX7hxNLxbtBtNKT+zJnCzqqx6OvEyWuQRepkX05MRFFfjp06i1V57y6RD8yHo0DWg9jDnq5VEeg5iPimx1bkyCaLkLTkz2Zd54C/ILccdkQyGztLFjxwn3OHFE3qqrgoLhhBgwQphaZ6d/bX0j+G5RFmN5VUMxDc31DXmEypxER5xKcErIJWvOk071ZIP7lS9P6eiNWXYFFkztw1lh2z/R5jjlcau4rrijkMgV/FsFmerajUTI8g=
-        file: dist/*"
+        file: dist/MTG-Arena-Tool 2.2.30-x86_64.AppImage
         on:
           repo: Manuel-777/mtg-arena-tool-travis-test
     - stage: Mac build
@@ -39,6 +41,6 @@ jobs:
         file_glob: true
         api_key:
           secure: uIYMNCzftzhPp5b6NgIdlfFnUkFFubh6FEzvRdga88mNTPDmP5ydL7gwyzUefNk8So44AfuUpSWH+EWC9SOmk0Sk5tIyN/XRc7lekUW7y4W4EKv01rKN2bH80qvCJUJO1gFLb0vfFdXUhKPr0cWEfGUJ3CPTxqaQqBRlzBwM0OTxlRZYg8X5AiqZ+qP8rrInF5EkJzvK89jDfRFVr5JfaF/h5LjKCqF2HTOT/G52//P2WV2YG/y4JbTpsiCvRQFzERXdaCdhBRcllYXpYa9d3N7FBczbe8rWxnHPxVkA3GeCDxVKgY6cyseyiZX1fa7M2hoKIGaSWKEDjcpW0lHYaNWA9Rk/nZ+GIz7femhTwDvIykmD0nbEpfdbBDMxTEdPQvhF/eOQxaNwk9eECTmRLcSvqj7AVuAOjiZw5qhyEx2iQe8Z8hDMubEiX7hxNLxbtBtNKT+zJnCzqqx6OvEyWuQRepkX05MRFFfjp06i1V57y6RD8yHo0DWg9jDnq5VEeg5iPimx1bkyCaLkLTkz2Zd54C/ILccdkQyGztLFjxwn3OHFE3qqrgoLhhBgwQphaZ6d/bX0j+G5RFmN5VUMxDc31DXmEypxER5xKcErIJWvOk071ZIP7lS9P6eiNWXYFFkztw1lh2z/R5jjlcau4rrijkMgV/FsFmerajUTI8g=
-        file: dist/*"
+        file: dist/MTG-Arena-Tool 2.2.30.pkg
         on:
           repo: Manuel-777/mtg-arena-tool-travis-test
