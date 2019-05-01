@@ -34,7 +34,7 @@
 		"linux": {
 			"target": "AppImage",
 			"category": "utility",
-			"icon": "32x32.png"
+			"icon": "icon-256.png"
 		}
 	},
 	"scripts": {
