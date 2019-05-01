@@ -15,7 +15,7 @@ before_deploy:
   - git config --local user.email "manuel.etchegaray7@gmail.com"
   - export PACKAGE=$(npm run version)
   - export HEAD=$(git log --format=%h -1)
-  - export TRAVIS_TAG=${TRAVIS_TAG:$(PACKAGE)-$(HEAD)}
+  - export TRAVIS_TAG=${TRAVIS_TAG:$PACKAGE-$HEAD}
   - git tag $TRAVIS_TAG
 
 jobs:
