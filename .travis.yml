@@ -13,6 +13,7 @@ matrix:
 
 env:
   global:
+    - PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
@@ -29,7 +30,9 @@ script:
   - npm run dist
 
 deploy:
+  overwrite: true
   provider: releases
   api_key: $GITHUB_TOKEN
+  file: $PACKAGE_VERSION
   skip_cleanup: true
   draft: true
