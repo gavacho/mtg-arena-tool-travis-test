@@ -13,8 +13,7 @@ before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "Manuel-777"
   - git config --local user.email "manuel.etchegaray7@gmail.com"
-  - export PACKAGE=${node -p -e "require('./package.json').version"}
-  - export TRAVIS_TAG=${TRAVIS_TAG:-$(PACKAGE)-$(git log --format=%h -1)}
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(npm run version)-$(git log --format=%h -1)}
   - git tag $TRAVIS_TAG
 
 jobs:
