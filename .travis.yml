@@ -1,6 +1,7 @@
 language: node_js
 
 node_js:
+  - "stable"
   - "10"
 
 matrix:
@@ -41,4 +42,7 @@ deploy:
     - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.dmg
     - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.exe
   skip_cleanup: true
-  draft: true
+  draft: false
+  on:
+    repo: Manuel-777/mtg-arena-tool-travis-test
+    tags: true
