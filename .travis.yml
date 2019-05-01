@@ -7,22 +7,14 @@ env:
   global:
   - ELECTRON_CACHE=$HOME/.cache/electron
   - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-  - TRAVIS_TAG=$(node -p "require('./package.json').version")-$(git log --format=%h -1)
-
 cache: npm
-
-before_deploy: |
-  PKG_VERSION=$(node -p "require('./package.json').version")
-  NPM_TAG="latest"
-  NPM_TAG="next"
-  SHORT_COMMIT_HASH=$(git rev-parse --short HEAD)
-  UNIQ_PKG_VERSION="${PKG_VERSION}.${SHORT_COMMIT_HASH}"
-  npm --no-git-tag-version version ${UNIQ_PKG_VERSION}
 
 before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "Manuel-777"
   - git config --local user.email "manuel.etchegaray7@gmail.com"
+  - export PACKAGE=${node -p -e "require('./package.json').version"}
+  - export TRAVIS_TAG=${TRAVIS_TAG:-$(PACKAGE)-$(git log --format=%h -1)}
   - git tag $TRAVIS_TAG
 
 jobs:
@@ -31,6 +23,8 @@ jobs:
       os: linux
       dist: xenial
       sudo: required
+      script:
+        - npm run dist
       deploy:
         provider: releases
         file_glob: true
@@ -41,6 +35,8 @@ jobs:
           repo: Manuel-777/mtg-arena-tool-travis-test
     - stage: Mac build
       os: osx
+      script:
+        - npm run dist
       deploy:
         provider: releases
         file_glob: true
