@@ -1,0 +1,24 @@
+language: node_js
+
+node_js:
+  - "8"
+  - "10"
+  - "12"
+
+matrix:
+  include:
+  - os: linux
+    dist: xenial
+    sudo: required
+  - os: osx
+
+cache: npm
+
+script:
+  - npm run dist
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  skip_cleanup: true
+  draft: true
