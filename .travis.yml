@@ -29,10 +29,16 @@ cache: npm
 script:
   - npm run dist
 
+before_deploy:
+  - echo $PACKAGE_VERSION
+
 deploy:
   overwrite: true
   provider: releases
   api_key: $GITHUB_TOKEN
-  file: $PACKAGE_VERSION
+  file:
+    - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.AppImage
+    - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.dmg
+    - $HOME/dist/MTG-Arena-Tool $PACKAGE_VERSION.exe
   skip_cleanup: true
   draft: true
