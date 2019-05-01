@@ -12,7 +12,6 @@ matrix:
 
 env:
   global:
-    - PACKAGE_VERSION=$(node -p -e "require('package.json').version")
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
@@ -28,19 +27,16 @@ cache: npm
 script:
   - npm run dist
 
-before_deploy:
-  - echo $PACKAGE_VERSION
-
 deploy:
   overwrite: true
   provider: releases
   api_key: $GITHUB_TOKEN
   file_glob: true
   file:
-    - "dist/MTG-Arena-Tool-*-x86_64.AppImage"
-    - "dist/MTG-Arena-Tool-*.dmg"
+    - "$HOME/dist/MTG-Arena-Tool-*-x86_64.AppImage"
+    - "$HOME/dist/MTG-Arena-Tool-*.pkg"
   skip_cleanup: true
-  draft: false
+  draft: true
   on:
     repo: Manuel-777/mtg-arena-tool-travis-test
     tags: true
