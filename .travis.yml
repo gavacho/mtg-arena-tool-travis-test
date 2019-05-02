@@ -2,27 +2,25 @@ language: node_js
 
 services:
   - docker
-
 node_js:
   - '10'
 env:
   global:
-  - ELECTRON_CACHE=$HOME/.cache/electron
-  - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 cache: npm
-
-before_deploy:
-  - git config --local user.name "Manuel-777"
-  - git config --local user.email "manuel.etchegaray7@gmail.com"
 
 jobs:
   include:
-    - stage: Linux build
+    - stage: Windows build
       os: linux
       dist: xenial
       sudo: required
-      script: 
-         - npm run dist
+      script: |
+        docker run --rm -ti \
+          -v ${PWD}:/project \
+          electronuserland/builder:wine \
+          /bin/bash -c "npm run dist"
       deploy:
         provider: releases
         file_glob: true
@@ -33,15 +31,12 @@ jobs:
         on:
           tags: true
           repo: Manuel-777/mtg-arena-tool-travis-test
-    - stage: Windows build
+    - stage: Linux build
       os: linux
       dist: xenial
       sudo: required
-      script: |
-        docker run --rm -ti \
-          -v ${PWD}:/project \
-          electronuserland/builder:wine \
-          /bin/bash -c "npm run dist"
+      script: 
+         - npm run dist
       deploy:
         provider: releases
         file_glob: true
